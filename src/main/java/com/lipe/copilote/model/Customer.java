@@ -1,8 +1,22 @@
 package com.lipe.copilote.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "CUSTOMERS")
 public class Customer {
+
+    @Id
+    @Column(name = "customer_id")
     public long customerId;
+
+    @Column(name = "first_name")
     public String firstName;
+
+    @Column(name = "last_name")
     public String lastName;
     public String email;
     public String password;

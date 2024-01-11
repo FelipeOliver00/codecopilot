@@ -1,6 +1,16 @@
 package com.lipe.copilote.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "PRODUCTS")
 public class Product {
+
+    @Id
+    @Column(name = "product_id")
     public long id;
     public String name;
     public String description;
