@@ -1,5 +1,5 @@
-drop table if exists customer;
-create table customer (
+drop table if exists customers;
+create table customers (
      customer_id int not null auto_increment,
      first_name varchar(50) not null,
      last_name varchar(50) not null,
@@ -8,8 +8,8 @@ create table customer (
      primary key (customer_id)
 );
 
-drop table if exists Product;
-create table Product (
+drop table if exists products;
+create table products (
      product_id int not null auto_increment,
      name varchar(50) not null,
      description varchar(50) not null,
