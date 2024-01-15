@@ -4,6 +4,7 @@ package com.lipe.copilote.config;
 
 // import the following classes from the spring security framework
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,22 +13,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 
 // class extends the WebSecurityConfigurerAdapter class
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // method configures the authentication manager
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // configure the authentication manager to use in memory authentication
-        auth.inMemoryAuthentication()
-            // add a user with the username user and password user
-            .withUser("user").password("user1234").roles("USER")
-            // add a user with the username admin and password admin
-            .and().withUser("admin").password("admin123").roles("ADMIN");
-    }
+    @Autowired
+    private DataSource dataSource;
+
 
     // no op password encoder
     @Bean
@@ -50,5 +46,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
             .and().formLogin();
+    }
+
+
+    // method configures the authentication manager
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // use jdbc authentication using the datasource h2 with default schema
+        auth.jdbcAuthentication()
+            .dataSource(dataSource)
+                .withDefaultSchema()
+                .withUser("user").password("user123").roles("USER")
+                .and()
+                //add admin user as well
+                .withUser("admin").password("admin123").roles("ADMIN");
     }
 }
