@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/", "/static/css/**", "/static/js/**", "/static/images/**", "/static/favicon.ico").permitAll()
             .antMatchers("/user").hasAnyRole("USER", "ADMIN")
             .antMatchers("/all").permitAll()
+                .antMatchers("/h2-console").permitAll()
             .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
             .and().formLogin();
@@ -54,11 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // use jdbc authentication using the datasource h2 with default schema
         auth.jdbcAuthentication()
-            .dataSource(dataSource)
-                .withDefaultSchema()
-                .withUser("user").password("user123").roles("USER")
-                .and()
-                //add admin user as well
-                .withUser("admin").password("admin123").roles("ADMIN");
+            .dataSource(dataSource);
+//                .withDefaultSchema();
+
     }
 }
