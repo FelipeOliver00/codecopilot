@@ -49,8 +49,8 @@
 
 -- create two users user and admin with password user123 and admin123 respectively and with roles ROLE_USER and ROLE_ADMIN respectively
 
-insert into users values ('user', 'user123', true);
-insert into authorities values ('user', 'ROLE_USER');
-
-insert into users values ('admin', 'admin123', true);
-insert into authorities values ('admin', 'ROLE_ADMIN');
+--insert into users values ('user', 'user123', true);
+--insert into authorities values ('user', 'ROLE_USER');
+--
+--insert into users values ('admin', 'admin123', true);
+--insert into authorities values ('admin', 'ROLE_ADMIN');
