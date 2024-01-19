@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/", "/static/css/**", "/static/js/**", "/static/images/**", "/static/favicon.ico").permitAll()
             .antMatchers("/user").hasAnyRole("USER", "ADMIN")
-            .antMatchers("/all").permitAll()
+            .antMatchers("/swagger-ui.html#/").permitAll()
                 .antMatchers("/h2-console").permitAll()
             .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
@@ -51,12 +51,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     // method configures the authentication manager
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        // use jdbc authentication using the datasource h2 with default schema
+//        auth.jdbcAuthentication()
+//            .dataSource(dataSource);
+//                .withDefaultSchema();
+//
+//    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // use jdbc authentication using the datasource h2 with default schema
-        auth.jdbcAuthentication()
-            .dataSource(dataSource);
-//                .withDefaultSchema();
+        // use jdbc authentication using the datasource mysql
+        auth.jdbcAuthentication().
+        dataSource(dataSource).usersByUsernameQuery("select username, password, enabled"
+                + " from users where username=?")
+                .authoritiesByUsernameQuery("select username, authority "
+                        + "from authorities where username=?");
 
     }
 }
