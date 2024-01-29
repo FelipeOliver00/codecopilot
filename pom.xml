@@ -55,6 +55,13 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!-- maven dependency for jwt -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.2</version>
+		</dependency>
+
 		<!-- maven for jdbc -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
