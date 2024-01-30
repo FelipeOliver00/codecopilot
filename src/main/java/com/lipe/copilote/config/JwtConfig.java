@@ -2,11 +2,13 @@ package com.lipe.copilote.config;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@Configuration
 public class JwtConfig {
 
     String SECRET_KEY = "4gypNYcd2w2QfT19qrdNW4N/OnFgedwSR6+aqhTWix4=";
